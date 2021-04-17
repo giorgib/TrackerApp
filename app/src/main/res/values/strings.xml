@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TrackerApp</string>
+    <string name="welcome_text">App needs Location permission to function</string>
+    <string name="continue_text">continue</string>
+    <string name="exit">Exit</string>
+    <string name="send_location_data">Send Location Data</string>
+</resources>
