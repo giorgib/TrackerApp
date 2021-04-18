@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.trackerapp.R;
 import com.example.trackerapp.data.GenericResponse;
 import com.example.trackerapp.data.entities.GPSEntity;
 import com.example.trackerapp.databinding.ActivityMainBinding;
@@ -58,16 +59,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupSwitch() {
         binding.switch1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            viewModel.setIsTracking(isChecked);
+
             if (isChecked) {
                 startLocationUpdates();
-                binding.textView.setText("Location updates enabled");
+                binding.textView.setText(getString(R.string.location_updates_enabled));
             } else {
                 stopLocationUpdates();
                 viewModel.startWorker();
 
-                binding.textView.setText("Location updates disabled");
+                binding.textView.setText(getString(R.string.location_updates_disabled));
             }
         });
+
+        binding.switch1.setChecked(viewModel.isTracking());
     }
 
     private void setupObservers() {
@@ -108,13 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        startLocationUpdates();
     }
 
     @SuppressLint("MissingPermission")

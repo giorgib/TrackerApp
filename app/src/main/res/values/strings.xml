@@ -4,4 +4,6 @@
     <string name="continue_text">continue</string>
     <string name="exit">Exit</string>
     <string name="send_location_data">Send Location Data</string>
+    <string name="location_updates_disabled">Location updates disabled</string>
+    <string name="location_updates_enabled">Location updates enabled</string>
 </resources>

@@ -1,5 +1,8 @@
 package com.example.trackerapp.repository;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,6 +12,7 @@ import com.example.trackerapp.data.GenericResponse;
 import com.example.trackerapp.data.entities.GPSEntity;
 import com.example.trackerapp.data.local.GPSDao;
 import com.example.trackerapp.data.remote.gps.GPSDataSource;
+import com.example.trackerapp.helper.PrefKeys;
 
 import java.util.List;
 
@@ -19,12 +23,14 @@ public class MainRepository {
     private final GPSDataSource dataSource;
     private final GPSDao dao;
     private final AuthRepository authRepository;
+    private final SharedPreferences sharedPreferences;
 
     @Inject
-    public MainRepository(GPSDataSource dataSource, GPSDao dao, AuthRepository authRepository) {
+    public MainRepository(Context context, GPSDataSource dataSource, GPSDao dao, AuthRepository authRepository) {
         this.dataSource = dataSource;
         this.dao = dao;
         this.authRepository = authRepository;
+        sharedPreferences = context.getSharedPreferences(PrefKeys.MAIN_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     public LiveData<GenericResponse<Void>> postGPSEntry(GPSEntity data) {
@@ -53,6 +59,15 @@ public class MainRepository {
         }));
 
         return responseData;
+    }
+
+
+    public boolean isTracking() {
+        return sharedPreferences.getBoolean(PrefKeys.TRACKING, false);
+    }
+
+    public void setIsTracking(boolean isTracking) {
+        sharedPreferences.edit().putBoolean(PrefKeys.TRACKING, isTracking).apply();
     }
 
     public LiveData<List<GPSEntity>> getAllGPSEntities() {

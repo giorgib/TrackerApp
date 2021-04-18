@@ -64,8 +64,8 @@ public abstract class AppModule {
 
     @Singleton
     @Provides
-    public static MainRepository provideMainRepository(AuthRepository authRepository, GPSDataSource dataSource, GPSDao dao) {
-        return new MainRepository(dataSource, dao, authRepository);
+    public static MainRepository provideMainRepository(@ApplicationContext Context context, AuthRepository authRepository, GPSDataSource dataSource, GPSDao dao) {
+        return new MainRepository(context, dataSource, dao, authRepository);
     }
 
     @Singleton

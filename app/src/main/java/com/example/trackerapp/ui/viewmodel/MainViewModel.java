@@ -67,4 +67,12 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<GPSEntity>> getAllGPSEntities() {
         return repository.getAllGPSEntities();
     }
+
+    public boolean isTracking() {
+        return repository.isTracking();
+    }
+
+    public void setIsTracking(boolean isTracking) {
+        repository.setIsTracking(isTracking);
+    }
 }
